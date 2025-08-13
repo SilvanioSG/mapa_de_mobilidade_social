@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mapa de Mobilidade Social — Brasil</title>
+<style>
+    body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; color: #333; }
+    header { background-color: #27628D; color: #fff; padding: 10px 20px; text-align: center; font-size: 14px; }
+    header a { color: #fff; text-decoration: none; }
+    h1 { color: #27628D; text-align: center; margin-top: 20px; }
+    .impact { text-align: center; font-style: italic; color: #444; margin-bottom: 20px; }
+    section { max-width: 900px; margin: auto; background: #fff; padding: 20px; margin-bottom: 20px; border-radius: 8px; }
+    footer { background-color: #27628D; color: #fff; text-align: center; padding: 10px; font-size: 12px; }
+    canvas { display: block; margin: auto; }
+    label { display: block; margin-top: 10px; }
+    input, select { padding: 5px; margin-top: 5px; width: 100%; }
+    button { margin-top: 10px; background-color: #27628D; color: #fff; border: none; padding: 10px; cursor: pointer; border-radius: 4px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<header>
+    Silvanio Gois — Técnico em Administração e Edificações | Graduando em Processos Gerenciais | 
+    <a href="mailto:sg@silvaniogois.com.br">sg@silvaniogois.com.br</a> | 
+    <a href="https://www.silvaniogois.com.br" target="_blank">www.silvaniogois.com.br</a>
+</header>
+<h1>Mapa de Mobilidade Social — Brasil</h1>
+<div class="impact">"Entender a mobilidade social é entender as portas que se abrem… e as que permanecem fechadas."</div>
+<section>
+    <h2>Termos e Finalidade</h2>
+    <p><strong>Mobilidade social</strong> é a capacidade de uma pessoa ou família melhorar ou piorar sua posição econômica e social ao longo do tempo. Não é apenas mudar de endereço, mas sim conquistar melhorias reais em renda, educação, saúde e qualidade de vida.</p>
+    <p>Este estudo busca explicar de forma acessível, mas fundamentada em dados, como a mobilidade social ocorre no Brasil, suas barreiras e as oportunidades possíveis — especialmente em um cenário de alta desigualdade.</p>
+</section>
+<section>
+    <h2>Principais Indicadores e Previsões</h2>
+    <p>Baseado em dados estatísticos e probabilidades, podemos destacar:</p>
+    <ul>
+        <li><strong>Índice de Gini:</strong> 0,506, indicando alta desigualdade.</li>
+        <li><strong>Probabilidade de ascensão do quintil mais baixo ao mais alto:</strong> 2,5%.</li>
+        <li><strong>Permanência no quintil inferior:</strong> 46%.</li>
+        <li><strong>Principais causas do baixo crescimento social:</strong> falta de acesso à educação de qualidade, desigualdade regional, baixo capital social e histórico familiar de baixa renda.</li>
+        <li><strong>Efeitos:</strong> concentração de renda, perpetuação de ciclos de pobreza, dificuldade de mobilidade intergeracional.</li>
+        <li><strong>Como sair do ciclo:</strong> investir em educação e qualificação profissional, desenvolvimento de conexões sociais, mobilidade geográfica e acesso a políticas públicas de apoio.</li>
+    </ul>
+    <p>Esses indicadores ajudam a compreender não apenas o "onde estamos", mas também as possibilidades de quebrar barreiras e promover maior equidade.</p>
+</section>
+<section>
+    <h2>Simulador de Mobilidade Social</h2>
+    <label for="renda">Renda Familiar Mensal (R$)</label>
+    <input type="number" id="renda" min="0" step="100">
+
+    <label for="educacao">Nível de Educação</label>
+    <select id="educacao">
+        <option value="1">Fundamental</option>
+        <option value="2">Médio</option>
+        <option value="3">Superior</option>
+    </select>
+
+    <button onclick="calcularMobilidade()">Calcular Probabilidade</button>
+    <canvas id="simuladorChart" width="600" height="400"></canvas>
+</section>
+<section>
+    <h2>Dados e Probabilidades Gerais</h2>
+    <canvas id="chart" width="600" height="400"></canvas>
+</section>
+<section>
+    <h2>Referências</h2>
+    <ul>
+        <li>PNADC/IBGE 2023</li>
+        <li>IPEA — Mobilidade Intergeracional</li>
+        <li>IMDS/SSRN/IZA — Dados administrativos de renda</li>
+        <li>OECD Economic Survey 2023</li>
+    </ul>
+</section>
+<footer>
+    &copy; 2025 Silvanio Gois — Todos os direitos reservados | <a href="https://www.silvaniogois.com.br" style="color: #fff;">Retornar ao site</a>
+</footer>
+<script>
+    // Gráfico geral
+    const ctx = document.getElementById('chart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Chance de subir para o topo', 'Permanência no quintil inferior'],
+            datasets: [{
+                label: 'Probabilidade (%)',
+                data: [2.5, 46],
+                backgroundColor: ['#27628D', '#82A0BC']
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: { legend: { display: false } },
+            scales: {
+                y: { beginAtZero: true, title: { display: true, text: 'Porcentagem (%)' } }
+            }
+        }
+    });
+
+    // Simulador interativo
+    let simuladorChart;
+    function calcularMobilidade() {
+        const renda = parseFloat(document.getElementById('renda').value) || 0;
+        const educacao = parseInt(document.getElementById('educacao').value);
+
+        let prob = 0;
+        if (educacao === 1) prob = renda / 2000 * 5;
+        if (educacao === 2) prob = renda / 2000 * 10;
+        if (educacao === 3) prob = renda / 2000 * 20;
+        if (prob > 80) prob = 80;
+
+        const ctxSim = document.getElementById('simuladorChart').getContext('2d');
+        if (simuladorChart) simuladorChart.destroy();
+        simuladorChart = new Chart(ctxSim, {
+            type: 'bar',
+            data: {
+                labels: ['Probabilidade de Mobilidade (%)'],
+                datasets: [{
+                    label: 'Sua Chance',
+                    data: [prob],
+                    backgroundColor: '#27628D'
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { beginAtZero: true, max: 100, title: { display: true, text: 'Porcentagem (%)' } }
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>

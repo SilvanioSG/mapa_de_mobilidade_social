@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mapa de Mobilidade Social — Brasil | Silvanio Gois</title>
+    <title>Mapa de Mobilidade Social — Estratégia de Capital Humano | Silvanio Gois</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+    
     <style>
         /* Variáveis CSS para Cores */
         :root {
@@ -28,33 +32,41 @@
         header {
             background-color: var(--primary-color);
             color: var(--text-light);
-            padding: 15px 5%; /* Aumentei o padding e usei % para responsividade */
+            padding: 15px 5%; 
             display: flex;
             align-items: center;
-            gap: 20px; /* Espaço entre a imagem e o texto */
+            gap: 20px; 
             font-size: 14px;
         }
 
         /* IMAGEM DE PERFIL */
         #perfil-img {
-            width: 80px; /* Aumentei levemente */
+            width: 80px; 
             height: 80px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid var(--text-light); /* Borda branca destacada */
+            border: 3px solid var(--text-light); 
         }
 
-        /* INFORMAÇÕES DO CABEÇALHO */
+        /* INFORMAÇÕES DO CABEÇALHO - AGORA MAIS DIRECIONADO */
         #header-info {
             flex-grow: 1;
             text-align: left;
         }
 
         #header-info strong {
-            font-weight: 600; /* Semi-bold */
-            display: block; /* Garante que o nome ocupe a linha toda */
-            font-size: 1.1em;
+            font-weight: 700; 
+            display: block; 
+            font-size: 1.2em;
             margin-bottom: 3px;
+        }
+        
+        /* Subtítulo do perfil focado em estratégia */
+        #header-info .focus-area {
+            display: block;
+            font-size: 0.9em;
+            font-weight: 300;
+            margin-bottom: 5px;
         }
 
         header a {
@@ -69,9 +81,19 @@
             text-align: center;
             margin-top: 30px;
             margin-bottom: 10px;
-            font-weight: 700; /* Negrito Forte */
+            font-weight: 700; 
             font-size: 2em;
         }
+        
+        /* SUBTÍTULO ESTRATÉGICO */
+        .subtitle-analytica {
+            text-align: center;
+            color: #555;
+            font-weight: 400;
+            font-size: 1.1em;
+            margin-bottom: 30px;
+        }
+
 
         h2 {
             color: var(--primary-color);
@@ -81,12 +103,13 @@
             font-weight: 600;
         }
 
+        /* CITAÇÃO DE IMPACTO */
         .impact {
             text-align: center;
             font-style: italic;
-            color: #555;
+            color: var(--secondary-color); 
             margin-bottom: 30px;
-            font-size: 1.1em;
+            font-size: 1.15em;
             max-width: 700px;
             margin-left: auto;
             margin-right: auto;
@@ -98,9 +121,9 @@
             max-width: 900px;
             margin: 20px auto;
             background: var(--text-light);
-            padding: 30px; /* Aumentei o padding */
+            padding: 30px; 
             border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08); /* Sombra mais suave */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08); 
         }
 
         /* FORMULÁRIO E INPUTS */
@@ -111,7 +134,6 @@
             font-weight: 600;
         }
 
-        /* Aplicações aos inputs e selects */
         input[type="number"], select { 
             padding: 10px;
             width: 100%;
@@ -127,10 +149,9 @@
             outline: none;
         }
 
-        /* Estilização do Placeholder para melhor visualização */
         ::placeholder {
             color: #999;
-            opacity: 1; /* Força a visibilidade no Firefox */
+            opacity: 1; 
             font-style: italic;
         }
         
@@ -145,37 +166,43 @@
             transition: background-color 0.3s ease;
             font-size: 1em;
             font-weight: 600;
-            width: 100%; /* Botão em largura total */
+            width: 100%; 
         }
 
         button:hover {
             background-color: var(--secondary-color);
         }
 
-        /* DEPOIMENTO PESSOAL (ESTILO BLOCKQUOTE) */
-        .depoimento {
+        /* ESTRATÉGIA BOX */
+        .estrategia-box {
             background-color: #e6f0f5;
             padding: 20px;
             border-left: 6px solid var(--primary-color);
-            font-style: italic;
             margin-top: 20px;
             border-radius: 0 8px 8px 0;
         }
 
-        .depoimento strong {
+        .estrategia-box strong {
             font-style: normal;
             font-weight: 700;
             color: var(--secondary-color);
         }
 
-        .depoimento ol {
+        .estrategia-box .titulo-estrategico {
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .estrategia-box ol {
             list-style-type: decimal;
             margin-left: 20px;
             padding-left: 0;
             margin-top: 10px;
         }
 
-        .depoimento li {
+        .estrategia-box li {
             margin-bottom: 8px;
         }
 
@@ -201,25 +228,24 @@
 
         /* RESPONSIVIDADE (MOBILE FIRST) */
         @media (max-width: 768px) {
-            /* Ajuste o layout do cabeçalho para dispositivos móveis */
             header {
-                flex-direction: column; /* Empilha a imagem e o texto */
+                flex-direction: column; 
                 text-align: center;
                 padding: 20px 5%;
             }
 
             #perfil-img {
-                margin: 0 auto 10px auto; /* Centraliza a imagem e adiciona margem inferior */
+                margin: 0 auto 10px auto; 
                 width: 70px;
                 height: 70px;
             }
 
             #header-info {
-                text-align: center; /* Centraliza o texto no mobile */
+                text-align: center; 
             }
 
             section {
-                padding: 20px 5%; /* Mais espaço nas laterais em telas pequenas */
+                padding: 20px 5%; 
                 margin: 15px 5%;
             }
 
@@ -232,20 +258,23 @@
             }
         }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <header>
         <img src="SG_Executivo-removebg-preview.png" alt="Foto de Perfil do Silvanio Gois" id="perfil-img">
         <div id="header-info">
-            <strong>Silvanio Gois</strong> — Técnico em Administração e Edificações | Graduando em Processos Gerenciais <br>
+            <strong>Silvanio Gois</strong> 
+            <span class="focus-area">Análise Estratégica e Gestão de Pessoas (Foco em ESG/Dados)</span>
+            <br>
             <a href="mailto:sg@silvaniogois.com.br">sg@silvaniogois.com.br</a> |
             <a href="https://www.silvaniogois.com.br" target="_blank">www.silvaniogois.com.br</a>
         </div>
     </header>
 
     <h1>Mapa de Mobilidade Social — Brasil</h1>
-    <div class="impact">"Entender a mobilidade social é entender as portas que se abrem… e as que permanecem fechadas."</div>
+    <div class="subtitle-analytica">Uma Análise de Risco e Estratégia de Capital Humano</div>
+    
+    <div class="impact">"A mobilidade social não é apenas um indicador; é o pulso da produtividade futura e do risco de retenção do seu Capital Humano."</div>
 
     <section>
         <h2>Termos e Finalidade</h2>
@@ -279,7 +308,7 @@
             <option value="3">Superior</option>
         </select>
 
-        <button onclick="calcularMobilidade()">Calculabilidade</button>
+        <button onclick="calcularMobilidade()">Calcular Probabilidade</button>
         <canvas id="simuladorChart" width="600" height="400"></canvas>
     </section>
 
@@ -289,23 +318,21 @@
     </section>
 
     <section>
-        <h2>Visão Analítica e Aplicação em Gestão</h2>
-        <p>Este relatório, que quantifica a dificuldade de ascensão social no Brasil, serve como um <strong>briefing</strong> fundamental para a tomada de decisões estratégicas em Gestão Empresarial e Recursos Humanos.</p>
-        <div class="depoimento">
-            <p><strong>Meu Depoimento Analítico:</strong></p>
+        <h2>Estratégia e Mensuração de Valor (ESG-S)</h2>
+        <p>Este relatório serve como um <strong>Diagnóstico de Risco Social</strong> para a Gestão de Talentos no Brasil e fundamenta a necessidade de uma estratégia robusta de ESG-S. O desafio de ascensão social (2,5%) e a alta permanência na base (46%) não são apenas dados frios, mas sim alertas diretos para a Gestão de <strong>Capital Humano</strong>.</p>
+        
+        <div class="estrategia-box">
+            <p class="titulo-estrategico">Proposta de Ação Estratégica: 3 Pilares para Mitigação de Risco</p>
             <p>
-                Como profissional em formação, compreendo que a gestão moderna exige a tradução de indicadores sociais em <strong>ações corporativas de valor</strong>. A baixa probabilidade de ascensão (2,5%) e a alta permanência na base (46%) não são apenas dados frios; são alertas diretos para a Gestão de <strong>Capital Humano</strong>.
-            </p>
-            <p>
-                Para mim, este relatório direciona a aplicação de recursos de forma credível, focando em três pilares essenciais:
+                A gestão moderna exige a tradução de indicadores sociais em <strong>ações corporativas de valor</strong>. Para mim, este relatório direciona a aplicação de recursos de forma credível, focando em:
             </p>
             <ol>
-                <li><strong>Retenção de Talentos:</strong> Empresas que atuam como "aceleradores de mobilidade" (oferecendo educação corporativa e trilhas de carreira formais, combatendo a barreira educacional) demonstram um valor superior, atraindo e retendo os melhores profissionais da base.</li>
-                <li><strong>ESG e Credibilidade:</strong> Ações focadas em <strong>Equidade Social (pilar S do ESG)</strong>, como a revisão de remuneração para mitigar a desigualdade, transformam a empresa em um agente de mudança. Meu trabalho é garantir que esses investimentos sejam <strong>mensuráveis</strong>, provando o impacto social e a criação de <strong>valor compartilhado</strong> para investidores e <strong>stakeholders</strong>.</li>
-                <li><strong>Produtividade:</strong> A mobilidade social está ligada ao aumento do Capital Humano. Ao romper o ciclo de baixa renda e educação, a empresa está, diretamente, elevando a competência e a produtividade de sua força de trabalho.</li>
+                <li><strong>Retenção de Talentos & Carreira:</strong> Empresas que atuam como "aceleradores de mobilidade" (oferecendo educação corporativa e trilhas de carreira formais, combatendo a barreira educacional) demonstram um valor superior, atraindo e retendo os melhores profissionais da base. <em>Medimos o impacto no <strong>índice de rotatividade (turnover)</strong> e na redução do <strong>custo de substituição</strong>.</em></li>
+                <li><strong>ESG e Credibilidade (Pilar S):</strong> Ações focadas em <strong>Equidade Social</strong>, como a revisão de remuneração para mitigar a desigualdade, transformam a empresa em um agente de mudança. Meu trabalho é garantir que esses investimentos sejam <strong>mensuráveis</strong>, provando o impacto social e a criação de <strong>valor compartilhado</strong> para investidores e <strong>stakeholders</strong>.</li>
+                <li><strong>Produtividade e Capital Humano:</strong> A mobilidade social está ligada ao aumento do Capital Humano. Ao romper o ciclo de baixa renda e educação, a empresa está, diretamente, elevando a competência, a qualificação e a produtividade de sua força de trabalho.</li>
             </ol>
             <p>
-                Portanto, apresento este documento como um exemplo da minha capacidade de ir além da administração de rotinas, utilizando a análise de dados macroeconômicos para construir <strong>estratégias de gestão de pessoas</strong> éticas e de alto impacto para o negócio.
+                Em suma, minha capacidade reside em transformar dados macroeconômicos em <strong>Plano de Ação de Pessoas mensurável (People Analytics)</strong>, garantindo que o investimento social da empresa gere um <strong>Retorno Compartilhado</strong> credível.
             </p>
         </div>
     </section>
@@ -325,6 +352,9 @@
     </footer>
 
     <script>
+        // OBRIGATÓRIO: Registrar o plugin datalabels globalmente
+        Chart.register(ChartDataLabels);
+
         // Gráfico geral
         const ctx = document.getElementById('chart').getContext('2d');
         new Chart(ctx, {
@@ -339,7 +369,17 @@
             },
             options: {
                 responsive: true,
-                plugins: { legend: { display: false } },
+                plugins: { 
+                    legend: { display: false },
+                    // Configuração do Datalabels para exibir o valor sobre a barra
+                    datalabels: {
+                        anchor: 'end',
+                        align: 'top',
+                        formatter: (value) => value.toFixed(1) + '%',
+                        color: '#333', 
+                        font: { weight: 'bold' }
+                    }
+                },
                 scales: {
                     y: { beginAtZero: true, title: { display: true, text: 'Porcentagem (%)' }, max: 100 }
                 }
@@ -349,23 +389,18 @@
         // Simulador interativo
         let simuladorChart;
         function calcularMobilidade() {
-            // Lendo o valor do input type="number"
             const renda = parseFloat(document.getElementById('renda').value) || 0;
             const educacao = parseInt(document.getElementById('educacao').value);
 
             let prob = 0;
-            // Lógica de simulação
-            // Baseado em uma renda de referência (Ex: 5000)
-            const fatorRenda = renda / 5000; 
+            const fatorRenda = renda / 5000;
             
-            if (educacao === 1) prob = fatorRenda * 10; // Fator de 10x para Fundamental
-            if (educacao === 2) prob = fatorRenda * 20; // Fator de 20x para Médio
-            if (educacao === 3) prob = fatorRenda * 35; // Fator de 35x para Superior
+            if (educacao === 1) prob = fatorRenda * 10; 
+            if (educacao === 2) prob = fatorRenda * 20; 
+            if (educacao === 3) prob = fatorRenda * 35; 
 
-            // Garante que a probabilidade não exceda 100%
             if (prob > 100) prob = 100;
 
-            // Formata a probabilidade para duas casas decimais
             const probFormatada = parseFloat(prob.toFixed(2));
 
 
@@ -383,7 +418,17 @@
                 },
                 options: {
                     responsive: true,
-                    plugins: { legend: { display: false } },
+                    plugins: { 
+                        legend: { display: false },
+                        // Configuração do Datalabels para exibir o valor sobre a barra
+                        datalabels: {
+                            anchor: 'end',
+                            align: 'top',
+                            formatter: (value) => value.toFixed(2) + '%',
+                            color: '#333', 
+                            font: { weight: 'bold' }
+                        }
+                    },
                     scales: {
                         y: { beginAtZero: true, max: 100, title: { display: true, text: 'Porcentagem (%)' } }
                     }

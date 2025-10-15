@@ -12,20 +12,21 @@
     <style>
         /* Variáveis CSS para Cores */
         :root {
-            --primary-color: #27628D; /* Azul Principal */
+            --primary-color: #27628D; /* Azul Principal (Risco/Base) */
             --secondary-color: #1a4968; /* Azul Escuro Hover */
+            --tertiary-color: #4092b3; /* Azul Intermediário/Oportunidade */
             --background-light: #f4f4f4;
             --text-dark: #333;
             --text-light: #fff;
         }
 
         body {
-            font-family: 'Montserrat', sans-serif; /* Nova Fonte */
+            font-family: 'Montserrat', sans-serif;
             background-color: var(--background-light);
             margin: 0;
             padding: 0;
             color: var(--text-dark);
-            line-height: 1.6; /* Melhor espaçamento entre linhas */
+            line-height: 1.6;
         }
 
         /* CABEÇALHO (HEADER) - FLEXBOX */
@@ -48,7 +49,7 @@
             border: 3px solid var(--text-light); 
         }
 
-        /* INFORMAÇÕES DO CABEÇALHO - AGORA MAIS DIRECIONADO */
+        /* INFORMAÇÕES DO CABEÇALHO */
         #header-info {
             flex-grow: 1;
             text-align: left;
@@ -225,6 +226,13 @@
             display: block;
             margin: 20px auto;
         }
+        
+        /* Responsividade para Gráfico de Rosca (Melhor no mobile) */
+        #chart {
+            max-width: 400px; /* Limita o tamanho do gráfico de rosca */
+            height: auto;
+            margin: 20px auto;
+        }
 
         /* RESPONSIVIDADE (MOBILE FIRST) */
         @media (max-width: 768px) {
@@ -314,7 +322,7 @@
 
     <section>
         <h2>Dados e Probabilidades Gerais</h2>
-        <canvas id="chart" width="600" height="400"></canvas>
+        <canvas id="chart" width="400" height="400"></canvas>
     </section>
 
     <section>
@@ -355,38 +363,76 @@
         // OBRIGATÓRIO: Registrar o plugin datalabels globalmente
         Chart.register(ChartDataLabels);
 
-        // Gráfico geral
+        // GRÁFICO ESTÁTICO: AGORA É UM GRÁFICO DE ROSCA (Doughnut) COM PALETA AZUL
         const ctx = document.getElementById('chart').getContext('2d');
         new Chart(ctx, {
-            type: 'bar',
+            type: 'doughnut',
             data: {
-                labels: ['Chance de subir para o topo', 'Permanência no quintil inferior'],
+                // Legendas corrigidas para maior clareza executiva
+                labels: [
+                    'Chance de Ascensão (Top Quintil)', 
+                    'Permanência na Base (Risco Principal)', 
+                    'Probabilidade de Permanecer em Quintis Intermediários'
+                ],
                 datasets: [{
                     label: 'Probabilidade (%)',
-                    data: [2.5, 46],
-                    backgroundColor: ['#27628D', '#82A0BC']
+                    data: [2.5, 46, 51.5], 
+                    // Paleta de azuis, com foco: Ascensão (mais claro), Risco (Primário), Intermediário (neutro)
+                    backgroundColor: [
+                        '#4092b3',       /* Azul Claro (Oportunidade/Ascensão) */
+                        '#27628D',       /* Azul Primário (Permanência/Risco) */
+                        '#82A0BC'        /* Azul Suave (Quintis Intermediários) */
+                    ],
+                    hoverOffset: 4,
+                    // Definindo a cor do texto do datalabel para cada fatia individualmente
+                    datalabels: {
+                        color: (context) => {
+                            // Garante que o texto fique legível em todas as fatias
+                            if (context.dataIndex === 0) return '#333'; // Preto na fatia clara
+                            return '#fff'; // Branco nas fatias escuras
+                        }
+                    }
                 }]
             },
             options: {
                 responsive: true,
                 plugins: { 
-                    legend: { display: false },
-                    // Configuração do Datalabels para exibir o valor sobre a barra
+                    legend: { 
+                        position: 'bottom',
+                        labels: {
+                            font: { size: 10 }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                label += context.formattedValue + '%';
+                                return label;
+                            }
+                        }
+                    },
+                    // Configuração do Datalabels
                     datalabels: {
-                        anchor: 'end',
-                        align: 'top',
                         formatter: (value) => value.toFixed(1) + '%',
-                        color: '#333', 
-                        font: { weight: 'bold' }
+                        font: { weight: 'bold', size: 14 },
+                        // Remove o background e shadow para um visual mais limpo no Rosca
+                        backgroundColor: null, 
+                        textShadow: {
+                            color: 'rgba(0, 0, 0, 0.4)', 
+                            blur: 4
+                        }
+                        // A cor do texto é definida no dataset para maior precisão
                     }
-                },
-                scales: {
-                    y: { beginAtZero: true, title: { display: true, text: 'Porcentagem (%)' }, max: 100 }
                 }
             }
         });
 
-        // Simulador interativo
+
+        // Simulador interativo (MANTIDO COMO BARRA PARA CLAREZA NO CÁLCULO)
         let simuladorChart;
         function calcularMobilidade() {
             const renda = parseFloat(document.getElementById('renda').value) || 0;

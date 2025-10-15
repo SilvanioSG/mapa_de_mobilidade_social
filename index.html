@@ -3,67 +3,243 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mapa de Mobilidade Social — Brasil</title>
+    <title>Mapa de Mobilidade Social — Brasil | Silvanio Gois</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; color: #333; }
-        
-        /* NOVO ESTILO PARA O CABEÇALHO COM IMAGEM (FLEXBOX) */
+        /* Variáveis CSS para Cores */
+        :root {
+            --primary-color: #27628D; /* Azul Principal */
+            --secondary-color: #1a4968; /* Azul Escuro Hover */
+            --background-light: #f4f4f4;
+            --text-dark: #333;
+            --text-light: #fff;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif; /* Nova Fonte */
+            background-color: var(--background-light);
+            margin: 0;
+            padding: 0;
+            color: var(--text-dark);
+            line-height: 1.6; /* Melhor espaçamento entre linhas */
+        }
+
+        /* CABEÇALHO (HEADER) - FLEXBOX */
         header {
-            background-color: #27628D;
-            color: #fff;
-            padding: 10px 20px;
-            display: flex; /* Habilita o Flexbox */
-            align-items: center; /* Alinha verticalmente a imagem e o texto */
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            padding: 15px 5%; /* Aumentei o padding e usei % para responsividade */
+            display: flex;
+            align-items: center;
+            gap: 20px; /* Espaço entre a imagem e o texto */
             font-size: 14px;
         }
 
-        /* ESTILO DA IMAGEM DE PERFIL */
+        /* IMAGEM DE PERFIL */
         #perfil-img {
-            width: 70px; /* Tamanho da imagem */
-            height: 70px;
-            border-radius: 50%; /* Opcional: para deixar a imagem redonda */
-            object-fit: cover; /* Garante que a imagem cubra a área sem distorção */
-            margin-right: 15px;
-            background-color: #fff; /* Fundo branco caso a imagem não seja totalmente transparente */
-            padding: 2px; /* Pequena borda interna */
+            width: 80px; /* Aumentei levemente */
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--text-light); /* Borda branca destacada */
         }
 
-        /* ESTILO PARA AS INFORMAÇÕES DO CABEÇALHO */
+        /* INFORMAÇÕES DO CABEÇALHO */
         #header-info {
-            flex-grow: 1; /* Permite que o bloco ocupe o espaço restante */
-            text-align: left; /* Alinha o texto à esquerda (ou centralize com 'center' se preferir) */
+            flex-grow: 1;
+            text-align: left;
+        }
+
+        #header-info strong {
+            font-weight: 600; /* Semi-bold */
+            display: block; /* Garante que o nome ocupe a linha toda */
+            font-size: 1.1em;
+            margin-bottom: 3px;
+        }
+
+        header a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 300;
+        }
+
+        /* TÍTULOS */
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-top: 30px;
+            margin-bottom: 10px;
+            font-weight: 700; /* Negrito Forte */
+            font-size: 2em;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .impact {
+            text-align: center;
+            font-style: italic;
+            color: #555;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 5%;
+        }
+
+        /* SEÇÕES DE CONTEÚDO */
+        section {
+            max-width: 900px;
+            margin: 20px auto;
+            background: var(--text-light);
+            padding: 30px; /* Aumentei o padding */
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08); /* Sombra mais suave */
+        }
+
+        /* FORMULÁRIO E INPUTS */
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        /* Aplicações aos inputs e selects */
+        input[type="number"], select { 
+            padding: 10px;
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        input[type="number"]:focus, select:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+
+        /* Estilização do Placeholder para melhor visualização */
+        ::placeholder {
+            color: #999;
+            opacity: 1; /* Força a visibilidade no Firefox */
+            font-style: italic;
         }
         
-        header a { color: #fff; text-decoration: none; }
-        h1 { color: #27628D; text-align: center; margin-top: 20px; }
-        .impact { text-align: center; font-style: italic; color: #444; margin-bottom: 20px; }
-        section { max-width: 900px; margin: auto; background: #fff; padding: 20px; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); } /* Adicionei sombra para destaque */
-        footer { background-color: #27628D; color: #fff; text-align: center; padding: 10px; font-size: 12px; }
-        canvas { display: block; margin: auto; }
-        label { display: block; margin-top: 10px; font-weight: bold; } /* Destaquei os labels */
-        input, select { padding: 8px; margin-top: 5px; width: 100%; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; } /* Melhor padding e box-sizing */
-        button { margin-top: 15px; background-color: #27628D; color: #fff; border: none; padding: 12px 20px; cursor: pointer; border-radius: 4px; transition: background-color 0.3s ease; }
-        button:hover { background-color: #1a4968; } /* Efeito hover */
-        
-        /* NOVO ESTILO PARA O DEPOIMENTO PESSOAL */
+        button {
+            margin-top: 20px;
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            border: none;
+            padding: 14px 25px;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: background-color 0.3s ease;
+            font-size: 1em;
+            font-weight: 600;
+            width: 100%; /* Botão em largura total */
+        }
+
+        button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* DEPOIMENTO PESSOAL (ESTILO BLOCKQUOTE) */
         .depoimento {
-            background-color: #e6f0f5; /* Cor de fundo mais clara para destacar */
-            padding: 15px;
-            border-left: 5px solid #27628D;
+            background-color: #e6f0f5;
+            padding: 20px;
+            border-left: 6px solid var(--primary-color);
             font-style: italic;
+            margin-top: 20px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .depoimento strong {
+            font-style: normal;
+            font-weight: 700;
+            color: var(--secondary-color);
+        }
+
+        .depoimento ol {
+            list-style-type: decimal;
+            margin-left: 20px;
+            padding-left: 0;
             margin-top: 10px;
         }
-        .depoimento strong { font-style: normal; }
+
+        .depoimento li {
+            margin-bottom: 8px;
+        }
+
+        /* RODAPÉ */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            text-align: center;
+            padding: 15px;
+            font-size: 0.85em;
+            margin-top: 40px;
+        }
+
+        footer a {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+        canvas {
+            display: block;
+            margin: 20px auto;
+        }
+
+        /* RESPONSIVIDADE (MOBILE FIRST) */
+        @media (max-width: 768px) {
+            /* Ajuste o layout do cabeçalho para dispositivos móveis */
+            header {
+                flex-direction: column; /* Empilha a imagem e o texto */
+                text-align: center;
+                padding: 20px 5%;
+            }
+
+            #perfil-img {
+                margin: 0 auto 10px auto; /* Centraliza a imagem e adiciona margem inferior */
+                width: 70px;
+                height: 70px;
+            }
+
+            #header-info {
+                text-align: center; /* Centraliza o texto no mobile */
+            }
+
+            section {
+                padding: 20px 5%; /* Mais espaço nas laterais em telas pequenas */
+                margin: 15px 5%;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+
+            h2 {
+                font-size: 1.2em;
+            }
+        }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <header>
         <img src="SG_Executivo-removebg-preview.png" alt="Foto de Perfil do Silvanio Gois" id="perfil-img">
-
         <div id="header-info">
             <strong>Silvanio Gois</strong> — Técnico em Administração e Edificações | Graduando em Processos Gerenciais <br>
-            <a href="mailto:sg@silvaniogois.com.br">sg@silvaniogois.com.br</a> | 
+            <a href="mailto:sg@silvaniogois.com.br">sg@silvaniogois.com.br</a> |
             <a href="https://www.silvaniogois.com.br" target="_blank">www.silvaniogois.com.br</a>
         </div>
     </header>
@@ -93,9 +269,9 @@
 
     <section>
         <h2>Simulador de Mobilidade Social</h2>
-        <label for="renda">Renda Familiar Mensal (R$) Digite apenas números sem ponto e sem vírgula.</label>
-        <input type="number" id="renda" min="0" step="100">
-        
+        <label for="renda">Renda Familiar Mensal (R$)</label>
+        <input type="number" id="renda" min="0" step="100" placeholder="Digite apenas números (Ex: 3500)">
+
         <label for="educacao">Nível de Educação</label>
         <select id="educacao">
             <option value="1">Fundamental</option>
@@ -103,7 +279,7 @@
             <option value="3">Superior</option>
         </select>
 
-        <button onclick="calcularMobilidade()">Calcular Probabilidade</button>
+        <button onclick="calcularMobilidade()">Calculabilidade</button>
         <canvas id="simuladorChart" width="600" height="400"></canvas>
     </section>
 
@@ -133,6 +309,7 @@
             </p>
         </div>
     </section>
+
     <section>
         <h2>Referências</h2>
         <ul>
@@ -144,7 +321,7 @@
     </section>
 
     <footer>
-        &copy; 2025 Silvanio Gois — Todos os direitos reservados | <a href="https://www.silvaniogois.com.br" style="color: #fff;">Retornar ao site</a>
+        &copy; 2025 Silvanio Gois — Todos os direitos reservados | <a href="https://www.silvaniogois.com.br">Retornar ao site</a>
     </footer>
 
     <script>
@@ -164,7 +341,7 @@
                 responsive: true,
                 plugins: { legend: { display: false } },
                 scales: {
-                    y: { beginAtZero: true, title: { display: true, text: 'Porcentagem (%)' } }
+                    y: { beginAtZero: true, title: { display: true, text: 'Porcentagem (%)' }, max: 100 }
                 }
             }
         });
@@ -172,15 +349,25 @@
         // Simulador interativo
         let simuladorChart;
         function calcularMobilidade() {
+            // Lendo o valor do input type="number"
             const renda = parseFloat(document.getElementById('renda').value) || 0;
             const educacao = parseInt(document.getElementById('educacao').value);
 
             let prob = 0;
-            // Lógica de simulação (mantida como estava)
-            if (educacao === 1) prob = renda / 2000 * 5;
-            if (educacao === 2) prob = renda / 2000 * 10;
-            if (educacao === 3) prob = renda / 2000 * 20;
-            if (prob > 80) prob = 80;
+            // Lógica de simulação
+            // Baseado em uma renda de referência (Ex: 5000)
+            const fatorRenda = renda / 5000; 
+            
+            if (educacao === 1) prob = fatorRenda * 10; // Fator de 10x para Fundamental
+            if (educacao === 2) prob = fatorRenda * 20; // Fator de 20x para Médio
+            if (educacao === 3) prob = fatorRenda * 35; // Fator de 35x para Superior
+
+            // Garante que a probabilidade não exceda 100%
+            if (prob > 100) prob = 100;
+
+            // Formata a probabilidade para duas casas decimais
+            const probFormatada = parseFloat(prob.toFixed(2));
+
 
             const ctxSim = document.getElementById('simuladorChart').getContext('2d');
             if (simuladorChart) simuladorChart.destroy();
@@ -190,7 +377,7 @@
                     labels: ['Probabilidade de Mobilidade (%)'],
                     datasets: [{
                         label: 'Sua Chance',
-                        data: [prob],
+                        data: [probFormatada],
                         backgroundColor: '#27628D'
                     }]
                 },

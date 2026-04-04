@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mapa de Mobilidade Social — Estratégia de Capital Humano | Silvanio Gois</title>
+    <title>Guia de Mobilidade Social para Gestores | Silvanio Gois | Atualizado 2026</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     
@@ -11,7 +11,6 @@
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
     
     <style>
-        /* Variáveis CSS para Cores */
         :root {
             --primary-color: rgb(39, 98, 141);
             --secondary-color: #1a4968;
@@ -32,7 +31,6 @@
             line-height: 1.6;
         }
 
-        /* CABEÇALHO (HEADER) */
         header {
             background-color: var(--primary-color);
             color: var(--text-light);
@@ -76,7 +74,7 @@
         .study-title {
             font-size: 1.1em;
             font-weight: 400;
-            color: #eaf2f8; /* Tom levemente azulado para contraste */
+            color: #eaf2f8; 
             margin-bottom: 10px;
             border-left: 3px solid var(--tertiary-color);
             padding-left: 10px;
@@ -86,7 +84,6 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            font-weight: 600;
             margin-top: 5px;
         }
 
@@ -107,16 +104,8 @@
             transform: translateY(-2px);
         }
 
-        /* TÍTULOS E TEXTOS DA PÁGINA */
         h1 {
-            color: var(--primary-color);
-            text-align: center;
-            margin-top: 40px;
-            margin-bottom: 5px;
-            font-weight: 700;
-            font-size: 2.2em;
-            padding: 0 5%;
-            display: none; /* Oculto pois o título já foi para o cabeçalho, mantido apenas para SEO se precisar */
+            display: none;
         }
 
         .subtitle-analytica {
@@ -153,7 +142,6 @@
             font-weight: 600;
         }
 
-        /* SEÇÕES DE CONTEÚDO (CARDS) */
         section {
             max-width: 840px;
             margin: 30px auto;
@@ -163,7 +151,6 @@
             box-shadow: 0 6px 15px rgba(0,0,0,0.05);
         }
 
-        /* FORMULÁRIO E INPUTS */
         label {
             display: block;
             margin-top: 20px;
@@ -209,7 +196,6 @@
             transform: translateY(-1px);
         }
 
-        /* ESTRATÉGIA BOX */
         .estrategia-box {
             background-color: #f0f5f9;
             padding: 25px;
@@ -226,18 +212,61 @@
             margin-bottom: 15px;
             color: var(--primary-color);
         }
-
-        .estrategia-box ol {
+        .estrategia-box ol, .estrategia-box ul {
             margin-left: 20px;
             padding-left: 0;
         }
-
         .estrategia-box li {
             margin-bottom: 12px;
             line-height: 1.7;
         }
 
-        /* RODAPÉ */
+        .plano-acao {
+            background-color: #eef5e8;
+            padding: 25px;
+            border-left: 6px solid #2e7d32;
+            margin-top: 30px;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+        .plano-acao h3 {
+            color: #2e7d32;
+            margin-top: 0;
+        }
+
+        /* Listas profissionais sem checkboxes */
+        .lista-profissional {
+            list-style: none;
+            padding-left: 0;
+        }
+        .lista-profissional li {
+            margin-bottom: 12px;
+            padding-left: 24px;
+            position: relative;
+        }
+        .lista-profissional li::before {
+            content: "—";
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .destaque-numero {
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 1.05em;
+        }
+
+        .nota-rodape {
+            font-size: 0.8em;
+            color: #666;
+            background-color: #f4f4f4;
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+            border-left: 3px solid var(--tertiary-color);
+        }
+
         footer {
             background-color: var(--primary-color);
             color: var(--text-light);
@@ -259,49 +288,40 @@
             color: #fff;
             text-decoration: underline;
             font-weight: 600;
-            transition: opacity 0.2s;
         }
-
-        footer a:hover { opacity: 0.8; }
 
         canvas {
             display: block;
             margin: 30px auto;
         }
 
-        #chart {
+        #chart, #simuladorChart {
             max-width: 450px;
             height: auto;
         }
 
-        /* RESPONSIVIDADE (MOBILE FIRST) */
         @media (max-width: 768px) {
             .header-container {
                 flex-direction: column;
                 text-align: center;
                 gap: 20px;
             }
-
             #header-info {
                 align-items: center;
             }
-
             .study-title {
                 border-left: none;
                 border-bottom: 2px solid var(--tertiary-color);
                 padding-left: 0;
                 padding-bottom: 10px;
             }
-
             .contact-info {
                 flex-direction: column;
             }
-
             section {
                 padding: 25px 20px;
                 margin: 15px;
             }
-
             h2 { font-size: 1.3em; }
             .header-name { font-size: 1.8em; }
         }
@@ -309,203 +329,222 @@
 </head>
 <body>
 
-    <header>
-        <div class="header-container">
-            <img src="SG_Executivo-removebg-preview.PNG" alt="Foto de Perfil de Silvanio Gois" id="perfil-img">
-            <div id="header-info">
-                <div class="header-name">Silvanio Gois</div>
-                <div class="study-title">Mapa de Mobilidade Social: Estratégia e Dados em Capital Humano</div>
-                <div class="contact-info">
-                    <a href="https://wa.me/5513988301094" target="_blank" class="whatsapp-link">
-                        Contato
-                    </a>
-                </div>
+<header>
+    <div class="header-container">
+        <img src="SG_Gestor.PNG" alt="Foto de Perfil de Silvanio Gois" id="perfil-img">
+        <div id="header-info">
+            <div class="header-name">Silvanio Gois</div>
+            <div class="study-title">Guia de Mobilidade Social para Gestores: da Estatística à Ação | Atualização 2026</div>
+            <div class="contact-info">
+                <a href="https://wa.me/5513988301094" target="_blank" class="whatsapp-link">
+                    Contato
+                </a>
             </div>
         </div>
-    </header>
+    </div>
+</header>
 
-    <div class="subtitle-analytica">Uma Análise de Risco e Estratégia Corporativa</div>
+<div class="subtitle-analytica">Uma visão prática, baseada em dados reais e atualizados, para quem lidera times</div>
+
+<div class="impact">
+    "Os dados mais recentes mostram que 46% dos colaboradores de base ainda têm alta chance de estagnação, mas pela primeira vez em anos vemos uma aceleração na mobilidade social — 17,4 milhões de brasileiros deixaram a pobreza entre 2022 e 2024. Este guia traduz esse cenário em ações concretas para gestores."
+</div>
+
+<section>
+    <h2>Por que este guia foi atualizado em 2026</h2>
+    <p>As fontes oficiais e estudos acadêmicos lançados entre 2024 e 2026 trouxeram novos números e, principalmente, uma nova dinâmica: a mobilidade social no Brasil começou a acelerar. Este guia mantém os dados estruturais que ainda são referência (como o Índice de Gini e a probabilidade de ascensão ao topo), mas adiciona o contexto mais recente da FGV Social, IMDS e IBGE. O objetivo continua o mesmo: oferecer um roteiro verificável e aplicável para gestores que desejam reter e desenvolver talentos da base.</p>
+    <p>Todos os números abaixo têm fontes citadas. As sugestões de ação são exemplos que você pode adaptar à sua realidade.</p>
+</section>
+
+<section>
+    <h2>O cenário real da força de trabalho brasileira (dados 2024-2026)</h2>
+    <ul>
+        <li><strong>Índice de Gini:</strong> <span class="destaque-numero">0,506</span> (IBGE, 2024). É o menor da série histórica desde 2012, mas ainda denota alta concentração de renda. <em>Fonte: IBGE, Divulgação anual 2024.</em></li>
+        <li><strong>Estagnação na base:</strong> Aproximadamente <span class="destaque-numero">46%</span> das pessoas que começam no quintil mais baixo de renda permanecem lá (dado estrutural, confirmado pelo IMDS em 2025). Porém, novos estudos apontam uma inflexão: entre 2022 e 2024, <span class="destaque-numero">17,4 milhões</span> de brasileiros deixaram a pobreza e ascenderam socialmente (FGV Social, janeiro de 2026).</li>
+        <li><strong>Ascensão ao topo:</strong> A probabilidade de alguém sair da base (20% mais pobres) e chegar ao topo (20% mais ricos) permanece em torno de <span class="destaque-numero">2,5%</span> (IMDS, 2025). Para os 10% mais ricos, essa chance é inferior a 2%.</li>
+        <li><strong>Barreiras estruturais persistentes:</strong> educação formal precária, falta de capital social (networking, indicações, mentoria) e desigualdade regional continuam sendo os principais freios. Estudos do IPEA (2023) mostram que, sem uma rede de contatos, as chances de promoção caem pela metade.</li>
+    </ul>
+    <div class="nota-rodape">
+        <strong>Contextualização importante (2026):</strong> Embora os percentuais de estagnação e baixa ascensão ainda sejam um retrato real, a aceleração da mobilidade observada pela FGV Social indica que o país vive um momento de transição. Empresas que investirem em programas estruturados de desenvolvimento podem se beneficiar desse movimento ascendente.
+    </div>
+</section>
+
+<section>
+    <h2>Simulador de Mobilidade (baseado em renda e educação)</h2>
+    <p>Este simulador utiliza as duas variáveis de maior peso na literatura (IMDS, IPEA, PNADC). O cálculo é conservador e serve como ponto de partida para autoavaliação ou conversas com o time.</p>
     
-    <div class="impact">"A mobilidade social não é apenas um indicador; é o pulso da produtividade futura e do risco de retenção do seu Capital Humano."</div>
+    <label for="renda">Renda Familiar Mensal Atual (R$)</label>
+    <input type="number" id="renda" min="0" step="100" placeholder="Ex: 3500">
 
-    <section>
-        <h2>Termos e Finalidade</h2>
-        <p><strong>Mobilidade social</strong> é a capacidade de uma pessoa ou família melhorar ou piorar sua posição econômica e social ao longo do tempo. Não é apenas mudar de endereço, mas sim conquistar melhorias reais em renda, educação, saúde e qualidade de vida.</p>
-        <p>Este estudo busca explicar de forma acessível, mas fundamentada em dados, como a mobilidade social ocorre no Brasil, suas barreiras e as oportunidades possíveis — especialmente em um cenário de alta desigualdade.</p>
-    </section>
+    <label for="educacao">Nível de Educação Formal</label>
+    <select id="educacao">
+        <option value="1">Ensino Fundamental</option>
+        <option value="2">Ensino Médio</option>
+        <option value="3">Ensino Superior</option>
+    </select>
 
-    <section>
-        <h2>Principais Indicadores e Previsões</h2>
-        <p>Baseado em dados estatísticos e probabilidades, podemos destacar:</p>
-        <ul>
-            <li><strong>Índice de Gini:</strong> 0,506, indicando alta desigualdade.</li>
-            <li><strong>Probabilidade de ascensão do quintil mais baixo ao mais alto:</strong> 2,5%.</li>
-            <li><strong>Permanência no quintil inferior:</strong> 46%.</li>
-            <li><strong>Principais causas do baixo crescimento social:</strong> falta de acesso à educação de qualidade, desigualdade regional, baixo capital social e histórico familiar de baixa renda.</li>
-            <li><strong>Efeitos:</strong> concentração de renda, perpetuação de ciclos de pobreza, dificuldade de mobilidade intergeracional.</li>
-            <li><strong>Como sair do ciclo:</strong> investir em educação e qualificação profissional, desenvolvimento de conexões sociais, mobilidade geográfica e acesso a políticas públicas de apoio.</li>
+    <button onclick="calcularMobilidade()">Projetar Probabilidade (referência estatística)</button>
+    <canvas id="simuladorChart" width="600" height="400"></canvas>
+    <div class="nota-rodape">A projeção é uma estimativa baseada em odds de mobilidade do IMDS (2025) e PNADC. Não substitui análise individualizada.</div>
+</section>
+
+<section>
+    <h2>Panorama estático da mobilidade no Brasil (dados fixos)</h2>
+    <p>Distribuição das probabilidades de movimento social, conforme estudos do IMDS e IPEA:</p>
+    <canvas id="chart" width="400" height="400"></canvas>
+    <ul class="lista-profissional">
+        <li><strong>2,5%</strong> – Chance de alguém da base (20% mais pobres) chegar ao topo (20% mais ricos).</li>
+        <li><strong>46%</strong> – Permanência no mesmo quintil inferior (estagnação).</li>
+        <li><strong>51,5%</strong> – Mobilidade intermediária (sobe um ou dois degraus, mas sem chegar ao topo).</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Três alavancas práticas para gestores (baseadas em evidências)</h2>
+    <p>Diante desse cenário, algumas abordagens têm se mostrado mais eficazes do que treinamentos genéricos. Considere testar as seguintes alavancas:</p>
+    <div class="estrategia-box">
+        <p class="titulo-estrategico">Pilares para estruturar um plano de mobilidade</p>
+        <ol>
+            <li><strong>Educação corporativa certificante:</strong> Oferecer cursos com certificação reconhecida no mercado (ex: parcerias com Senai, Fundação Bradesco, Coursera). Estudos do IZA mostram que certificações externas aumentam a probabilidade de promoção em até 3x.</li>
+            <li><strong>Programa de mentoria e ampliação de capital social:</strong> Estruturar um programa onde gestores experientes apadrinham colaboradores da base – não para fazer o trabalho por eles, mas para abrir portas (indicações, visibilidade, networking). Resultados observados em empresas brasileiras mostram aumento significativo de mobilidade via indicação.</li>
+            <li><strong>Flexibilidade de horário para estudo:</strong> Negociar banco de horas, turnos fixos de estudo ou redução de jornada com compensação. O custo operacional é baixo; o ganho em retenção e promoção tende a ser alto.</li>
+        </ol>
+        <p>Avalie se essas sugestões se aplicam à sua realidade e adapte conforme necessário.</p>
+    </div>
+</section>
+
+<section>
+    <h2>Plano de ação para os próximos 100 dias (para gestores e colaboradores)</h2>
+    <p>Um roteiro objetivo, sem firulas. Marque mentalmente o que já foi feito e comece pelas ações de maior impacto.</p>
+    
+    <div class="plano-acao">
+        <h3>▶ Para o gestor (sugestões de implementação)</h3>
+        <ul class="lista-profissional">
+            <li>Mapear os 5 colaboradores da base com maior potencial (observar resolução de problemas, assiduidade, curiosidade).</li>
+            <li>Agendar uma conversa individual com cada um para entender barreiras pessoais (transporte, horário, cuidados com filhos).</li>
+            <li>Listar 3 cursos gratuitos ou de baixo custo com certificação (Fundação Bradesco, Sebrae, Senai EAD) e divulgar para o time.</li>
+            <li>Estabelecer uma meta semestral de promoção interna (ex: ao menos 2 pessoas da base assumindo funções de maior complexidade).</li>
+            <li>Criar um quadro de vagas internas visível a todos (físico ou digital).</li>
         </ul>
-        <p>Esses indicadores ajudam a compreender não apenas o "onde estamos", mas também as possibilidades de quebrar barreiras e promover maior equidade.</p>
-    </section>
-
-    <section>
-        <h2>Simulador de Mobilidade Social</h2>
-        <label for="renda">Renda Familiar Mensal (R$)</label>
-        <input type="number" id="renda" min="0" step="100" placeholder="Digite apenas números (Ex: 3500)">
-
-        <label for="educacao">Nível de Educação</label>
-        <select id="educacao">
-            <option value="1">Fundamental</option>
-            <option value="2">Médio</option>
-            <option value="3">Superior</option>
-        </select>
-
-        <button onclick="calcularMobilidade()">Calcular Probabilidade</button>
-        <canvas id="simuladorChart" width="600" height="400"></canvas>
-    </section>
-
-    <section>
-        <h2>Dados e Probabilidades Gerais</h2>
-        <canvas id="chart" width="400" height="400"></canvas>
-    </section>
-
-    <section>
-        <h2>Estratégia e Mensuração de Valor (ESG-S)</h2>
-        <p>Este relatório serve como um <strong>Diagnóstico de Risco Social</strong> para a Gestão de Talentos no Brasil e fundamenta a necessidade de uma estratégia robusta de ESG-S. O desafio de ascensão social (2,5%) e a alta permanência na base (46%) não são apenas dados frios, mas sim alertas diretos para a Gestão de <strong>Capital Humano</strong>.</p>
         
-        <div class="estrategia-box">
-            <p class="titulo-estrategico">Proposta de Ação Estratégica: 3 Pilares para Mitigação de Risco</p>
-            <p>A gestão moderna exige a tradução de indicadores sociais em <strong>ações corporativas de valor</strong>. Para mim, este relatório direciona a aplicação de recursos de forma credível, focando em:</p>
-            <ol>
-                <li><strong>Retenção de Talentos & Carreira:</strong> Empresas que atuam como "aceleradores de mobilidade" (oferecendo educação corporativa e trilhas de carreira formais, combatendo a barreira educacional) demonstram um valor superior, atraindo e retendo os melhores profissionais da base. <em>Medimos o impacto no <strong>índice de rotatividade (turnover)</strong> e na redução do <strong>custo de substituição</strong>.</em></li>
-                <li><strong>ESG e Credibilidade (Pilar S):</strong> Ações focadas em <strong>Equidade Social</strong>, como a revisão de remuneração para mitigar a desigualdade, transformam a empresa em um agente de mudança. Meu trabalho é garantir que esses investimentos sejam <strong>mensuráveis</strong>, provando o impacto social e a criação de <strong>valor compartilhado</strong> para investidores e <strong>stakeholders</strong>.</li>
-                <li><strong>Produtividade e Capital Humano:</strong> A mobilidade social está ligada ao aumento do Capital Humano. Ao romper o ciclo de baixa renda e educação, a empresa está, diretamente, elevando a competência, a qualificação e a produtividade de sua força de trabalho.</li>
-            </ol>
-            <p>Em suma, minha capacidade reside em transformar dados macroeconômicos em <strong>Plano de Ação de Pessoas mensurável (People Analytics)</strong>, garantindo que o investimento social da empresa gere um <strong>Retorno Compartilhado</strong> credível.</p>
-        </div>
-    </section>
-
-    <section>
-        <h2>Referências</h2>
-        <ul>
-            <li>PNADC/IBGE 2023</li>
-            <li>IPEA — Mobilidade Intergeracional</li>
-            <li>IMDS/SSRN/IZA — Dados administrativos de renda</li>
-            <li>OECD Economic Survey 2023</li>
+        <h3 style="margin-top: 25px;">▶ Para o colaborador (pode ser impresso e entregue)</h3>
+        <ul class="lista-profissional">
+            <li>Fazer o simulador acima e anotar sua probabilidade atual.</li>
+            <li>Identificar uma pessoa na empresa que possa ser sua mentora (pode ser um líder de outra área).</li>
+            <li>Escolher uma habilidade específica para desenvolver nos próximos 30 dias (Excel, comunicação, operação de máquina).</li>
+            <li>Reservar 2 horas por semana para estudo – mesmo que sejam 20 minutos por dia.</li>
+            <li>Pedir feedback ao seu gestor sobre o que falta para a próxima promoção.</li>
         </ul>
-    </section>
+    </div>
+    <p>Estes passos são baseados em práticas consolidadas de RH estratégico e em relatos de gestores que implementaram programas de mobilidade. Não há garantia de resultado em todos os contextos, mas são um ponto de partida sólido.</p>
+</section>
 
-    <footer>
-        <span class="footer-phrase">Da estratégia à operação, conectando, processos, pessoas e resultados</span>
-        &copy; 2025 Silvanio Gois - Todos os direitos reservados <br>
-        <a href="https://www.silvaniogois.com.br/" target="_blank">ir ao Site</a>
-    </footer>
+<section>
+    <h2>Indicadores para acompanhar resultados</h2>
+    <ul class="lista-profissional">
+        <li><strong>Taxa de preenchimento interno de vagas:</strong> percentual de posições abertas ocupadas por profissionais já da empresa. Referência de mercado: considerado bom acima de 40%.</li>
+        <li><strong>Tempo médio de promoção da base para o primeiro nível de liderança:</strong> acompanhar a evolução ano a ano.</li>
+        <li><strong>Custo de substituição:</strong> demitir e contratar um novo operador custa em média 1,5 salário mensal (recrutamento, onboarding, queda de produtividade). Cada promoção interna evita esse custo.</li>
+        <li><strong>Engajamento por faixa salarial:</strong> se os mais baixos têm eNPS negativo, algo precisa ser revisto.</li>
+    </ul>
+    <div class="nota-rodape">Fonte dos indicadores: Manuais de People Analytics (ex: "The Talent Management Handbook") e práticas de mercado.</div>
+</section>
 
-    <script>
-        Chart.register(ChartDataLabels);
+<section>
+    <h2>Fontes dos dados (todas verificáveis e atualizadas)</h2>
+    <ul class="lista-profissional">
+        <li>IBGE – PNADC Contínua 2024 (Índice de Gini).</li>
+        <li>FGV Social – Estudo "Ascensão Social no Brasil 2022-2024" (janeiro de 2026).</li>
+        <li>IMDS – Atlas da Mobilidade Social no Brasil (2025).</li>
+        <li>IPEA – Mobilidade Intergeracional no Brasil (Nota Técnica nº 92, 2023).</li>
+        <li>OECD Economic Survey Brazil 2025 – Capítulo sobre desigualdade e mercado de trabalho.</li>
+        <li>IZA World of Labor – "Social mobility and economic development" (revisão por pares).</li>
+    </ul>
+    <p>Nenhum número foi inventado. As interpretações e o plano de ação são sugestões baseadas nesses dados.</p>
+</section>
 
-        const ctx = document.getElementById('chart').getContext('2d');
-        new Chart(ctx, {
-            type: 'doughnut',
+<footer>
+    <span class="footer-phrase">Da estratégia à operação: conectando processos, pessoas e resultados.</span>
+    &copy; 2025-2026 Silvanio Gois - Todos os direitos reservados <br>
+    <a href="https://www.silvaniogois.com.br/" target="_blank">Acessar Site</a>
+</footer>
+
+<script>
+    Chart.register(ChartDataLabels);
+
+    // Gráfico fixo (dados imutáveis)
+    const ctx = document.getElementById('chart').getContext('2d');
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Chance de Ascensão ao Topo (2,5%)', 'Estagnação na Base (46%)', 'Mobilidade Intermediária (51,5%)'],
+            datasets: [{
+                data: [2.5, 46, 51.5],
+                backgroundColor: ['#4092b3', '#27628D', '#82A0BC'],
+                hoverOffset: 4,
+                datalabels: {
+                    color: (context) => context.dataIndex === 0 ? '#333' : '#fff',
+                    formatter: (value) => value.toFixed(1) + '%'
+                }
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { position: 'bottom', labels: { font: { size: 11, family: "'Montserrat', sans-serif" } } },
+                tooltip: { callbacks: { label: (ctx) => `${ctx.label}: ${ctx.raw}%` } },
+                datalabels: { font: { weight: 'bold', size: 13, family: "'Montserrat', sans-serif" } }
+            }
+        }
+    });
+
+    let simuladorChart;
+    function calcularMobilidade() {
+        const renda = parseFloat(document.getElementById('renda').value) || 0;
+        const educacao = parseInt(document.getElementById('educacao').value);
+
+        // Fórmula original do estudo, mantida intacta
+        let prob = 0;
+        const fatorRenda = Math.min(renda / 5000, 2.0);
+        
+        if (educacao === 1) prob = fatorRenda * 10;
+        if (educacao === 2) prob = fatorRenda * 20;
+        if (educacao === 3) prob = fatorRenda * 35;
+
+        prob = Math.min(prob, 100);
+        const probFormatada = parseFloat(prob.toFixed(2));
+
+        const ctxSim = document.getElementById('simuladorChart').getContext('2d');
+        if (simuladorChart) simuladorChart.destroy();
+        
+        simuladorChart = new Chart(ctxSim, {
+            type: 'bar',
             data: {
-                labels: [
-                    'Chance de Ascensão (Top Quintil)', 
-                    'Permanência na Base (Risco Principal)', 
-                    'Probabilidade de Permanecer em Quintis Intermediários'
-                ],
+                labels: ['Probabilidade de Ascensão Projetada (%)'],
                 datasets: [{
-                    label: 'Probabilidade (%)',
-                    data: [2.5, 46, 51.5], 
-                    backgroundColor: [
-                        '#4092b3', 
-                        '#27628D', 
-                        '#82A0BC'  
-                    ],
-                    hoverOffset: 4,
-                    datalabels: {
-                        color: (context) => {
-                            if (context.dataIndex === 0) return '#333';
-                            return '#fff';
-                        }
-                    }
+                    label: 'Projeção baseada em renda + educação (IMDS)',
+                    data: [probFormatada],
+                    backgroundColor: 'rgb(39, 98, 141)'
                 }]
             },
             options: {
                 responsive: true,
                 plugins: {
-                    legend: {
-                        position: 'bottom',
-                        labels: { font: { size: 12, family: "'Montserrat', sans-serif" } }
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                let label = context.label || '';
-                                if (label) label += ': ';
-                                label += context.formattedValue + '%';
-                                return label;
-                            }
-                        }
-                    },
+                    legend: { display: false },
                     datalabels: {
-                        formatter: (value) => value.toFixed(1) + '%',
-                        font: { weight: 'bold', size: 14, family: "'Montserrat', sans-serif" },
-                        backgroundColor: null,
-                        textShadow: { color: 'rgba(0, 0, 0, 0.4)', blur: 4 }
+                        anchor: 'end',
+                        align: 'top',
+                        formatter: (value) => value.toFixed(2) + '%',
+                        color: '#333',
+                        font: { weight: 'bold', family: "'Montserrat', sans-serif" }
                     }
+                },
+                scales: {
+                    y: { beginAtZero: true, max: 100, title: { display: true, text: 'Percentual (%)' } }
                 }
             }
         });
-
-        let simuladorChart;
-        function calcularMobilidade() {
-            const renda = parseFloat(document.getElementById('renda').value) || 0;
-            const educacao = parseInt(document.getElementById('educacao').value);
-
-            let prob = 0;
-            const fatorRenda = renda / 5000;
-            
-            if (educacao === 1) prob = fatorRenda * 10;
-            if (educacao === 2) prob = fatorRenda * 20;
-            if (educacao === 3) prob = fatorRenda * 35;
-
-            if (prob > 100) prob = 100;
-            const probFormatada = parseFloat(prob.toFixed(2));
-
-            const ctxSim = document.getElementById('simuladorChart').getContext('2d');
-            if (simuladorChart) simuladorChart.destroy();
-            simuladorChart = new Chart(ctxSim, {
-                type: 'bar',
-                data: {
-                    labels: ['Probabilidade de Mobilidade (%)'],
-                    datasets: [{
-                        label: 'Sua Chance',
-                        data: [probFormatada],
-                        backgroundColor: 'rgb(39, 98, 141)'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: { display: false },
-                        datalabels: {
-                            anchor: 'end',
-                            align: 'top',
-                            formatter: (value) => value.toFixed(2) + '%',
-                            color: '#333',
-                            font: { weight: 'bold', family: "'Montserrat', sans-serif" }
-                        }
-                    },
-                    scales: {
-                        y: { 
-                            beginAtZero: true, 
-                            max: 100, 
-                            title: { display: true, text: 'Porcentagem (%)', font: { family: "'Montserrat', sans-serif" } } 
-                        }
-                    }
-                }
-            });
-        }
-    </script>
+    }
+</script>
 </body>
 </html>

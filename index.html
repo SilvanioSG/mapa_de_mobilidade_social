@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mapa de Mobilidade Social — Estratégia de Capital Humano | Silvanio Gois</title>
+    
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -12,12 +13,14 @@
     <style>
         /* Variáveis CSS para Cores */
         :root {
-            --primary-color: #27628D; /* Azul Principal (Risco/Base) */
-            --secondary-color: #1a4968; /* Azul Escuro Hover */
-            --tertiary-color: #4092b3; /* Azul Intermediário/Oportunidade */
-            --background-light: #f4f4f4;
-            --text-dark: #333;
-            --text-light: #fff;
+            --primary-color: rgb(39, 98, 141);
+            --secondary-color: #1a4968;
+            --tertiary-color: #4092b3;
+            --background-light: #f8f9fa;
+            --surface-color: #ffffff;
+            --text-dark: #2c3e50;
+            --text-light: #ffffff;
+            --border-radius: 10px;
         }
 
         body {
@@ -29,182 +32,209 @@
             line-height: 1.6;
         }
 
-        /* CABEÇALHO (HEADER) - FLEXBOX */
+        /* CABEÇALHO (HEADER) */
         header {
             background-color: var(--primary-color);
             color: var(--text-light);
-            padding: 15px 5%; 
+            padding: 35px 5%;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .header-container {
+            max-width: 900px;
+            margin: 0 auto;
             display: flex;
             align-items: center;
-            gap: 20px; 
-            font-size: 14px;
+            gap: 35px;
         }
 
-        /* IMAGEM DE PERFIL */
         #perfil-img {
-            width: 80px; 
-            height: 80px;
+            width: 130px;
+            height: 130px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid var(--text-light); 
+            border: 4px solid var(--surface-color);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            flex-shrink: 0;
         }
 
-        /* INFORMAÇÕES DO CABEÇALHO */
         #header-info {
             flex-grow: 1;
-            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
         }
 
-        #header-info strong {
-            font-weight: 700; 
-            display: block; 
-            font-size: 1.2em;
-            margin-bottom: 3px;
-        }
-        
-        /* Subtítulo do perfil focado em estratégia */
-        #header-info .focus-area {
-            display: block;
-            font-size: 0.9em;
-            font-weight: 300;
-            margin-bottom: 5px;
-        }
-
-        header a {
+        .header-name {
+            font-size: 2em;
+            font-weight: 700;
+            margin: 0;
+            letter-spacing: 0.5px;
             color: var(--text-light);
-            text-decoration: none;
-            font-weight: 300;
         }
 
-        /* TÍTULOS */
+        .study-title {
+            font-size: 1.1em;
+            font-weight: 400;
+            color: #eaf2f8; /* Tom levemente azulado para contraste */
+            margin-bottom: 10px;
+            border-left: 3px solid var(--tertiary-color);
+            padding-left: 10px;
+        }
+
+        .contact-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        .whatsapp-link {
+            background-color: #25D366; 
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            display: inline-flex;
+            align-items: center;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .whatsapp-link:hover {
+            background-color: #1ebe57;
+            transform: translateY(-2px);
+        }
+
+        /* TÍTULOS E TEXTOS DA PÁGINA */
         h1 {
             color: var(--primary-color);
             text-align: center;
-            margin-top: 30px;
-            margin-bottom: 10px;
-            font-weight: 700; 
-            font-size: 2em;
+            margin-top: 40px;
+            margin-bottom: 5px;
+            font-weight: 700;
+            font-size: 2.2em;
+            padding: 0 5%;
+            display: none; /* Oculto pois o título já foi para o cabeçalho, mantido apenas para SEO se precisar */
         }
-        
-        /* SUBTÍTULO ESTRATÉGICO */
+
         .subtitle-analytica {
             text-align: center;
             color: #555;
             font-weight: 400;
             font-size: 1.1em;
-            margin-bottom: 30px;
-        }
-
-
-        h2 {
-            color: var(--primary-color);
-            border-bottom: 2px solid #ccc;
-            padding-bottom: 5px;
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-
-        /* CITAÇÃO DE IMPACTO */
-        .impact {
-            text-align: center;
-            font-style: italic;
-            color: var(--secondary-color); 
-            margin-bottom: 30px;
-            font-size: 1.15em;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
+            margin-bottom: 20px;
+            margin-top: 30px;
             padding: 0 5%;
         }
 
-        /* SEÇÕES DE CONTEÚDO */
+        .impact {
+            text-align: center;
+            font-style: italic;
+            color: var(--secondary-color);
+            margin-bottom: 40px;
+            font-size: 1.2em;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 20px;
+            background-color: #eaf2f8;
+            border-radius: var(--border-radius);
+            border-left: 5px solid var(--primary-color);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid #e1e8ed;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        /* SEÇÕES DE CONTEÚDO (CARDS) */
         section {
-            max-width: 900px;
-            margin: 20px auto;
-            background: var(--text-light);
-            padding: 30px; 
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08); 
+            max-width: 840px;
+            margin: 30px auto;
+            background: var(--surface-color);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.05);
         }
 
         /* FORMULÁRIO E INPUTS */
         label {
             display: block;
-            margin-top: 15px;
-            margin-bottom: 5px;
+            margin-top: 20px;
+            margin-bottom: 8px;
             font-weight: 600;
+            color: var(--secondary-color);
         }
 
-        input[type="number"], select { 
-            padding: 10px;
+        input[type="number"], select {
+            padding: 12px 15px;
             width: 100%;
             box-sizing: border-box;
-            border: 1px solid #ddd;
+            border: 1px solid #ccc;
             border-radius: 6px;
             font-size: 1em;
-            transition: border-color 0.3s;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            font-family: 'Montserrat', sans-serif;
         }
 
         input[type="number"]:focus, select:focus {
             border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(39, 98, 141, 0.1);
             outline: none;
         }
 
-        ::placeholder {
-            color: #999;
-            opacity: 1; 
-            font-style: italic;
-        }
-        
         button {
-            margin-top: 20px;
+            margin-top: 25px;
             background-color: var(--primary-color);
             color: var(--text-light);
             border: none;
-            padding: 14px 25px;
+            padding: 15px 25px;
             cursor: pointer;
             border-radius: 6px;
-            transition: background-color 0.3s ease;
-            font-size: 1em;
+            transition: background-color 0.3s ease, transform 0.1s;
+            font-size: 1.05em;
             font-weight: 600;
-            width: 100%; 
+            width: 100%;
+            font-family: 'Montserrat', sans-serif;
         }
 
         button:hover {
             background-color: var(--secondary-color);
+            transform: translateY(-1px);
         }
 
         /* ESTRATÉGIA BOX */
         .estrategia-box {
-            background-color: #e6f0f5;
-            padding: 20px;
+            background-color: #f0f5f9;
+            padding: 25px;
             border-left: 6px solid var(--primary-color);
-            margin-top: 20px;
-            border-radius: 0 8px 8px 0;
+            margin-top: 30px;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
         }
 
-        .estrategia-box strong {
-            font-style: normal;
-            font-weight: 700;
-            color: var(--secondary-color);
-        }
-
+        .estrategia-box p { margin-top: 0; }
+        .estrategia-box strong { color: var(--secondary-color); }
         .estrategia-box .titulo-estrategico {
-            font-size: 1.1em;
-            font-weight: 600;
-            margin-bottom: 10px;
+            font-size: 1.2em;
+            font-weight: 700;
+            margin-bottom: 15px;
             color: var(--primary-color);
         }
 
         .estrategia-box ol {
-            list-style-type: decimal;
             margin-left: 20px;
             padding-left: 0;
-            margin-top: 10px;
         }
 
         .estrategia-box li {
-            margin-bottom: 8px;
+            margin-bottom: 12px;
+            line-height: 1.7;
         }
 
         /* RODAPÉ */
@@ -212,75 +242,89 @@
             background-color: var(--primary-color);
             color: var(--text-light);
             text-align: center;
-            padding: 15px;
-            font-size: 0.85em;
-            margin-top: 40px;
+            padding: 30px 5%;
+            font-size: 0.9em;
+            margin-top: 60px;
+            line-height: 1.8;
+        }
+
+        .footer-phrase {
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: block;
         }
 
         footer a {
             color: #fff;
             text-decoration: underline;
+            font-weight: 600;
+            transition: opacity 0.2s;
         }
+
+        footer a:hover { opacity: 0.8; }
 
         canvas {
             display: block;
-            margin: 20px auto;
+            margin: 30px auto;
         }
-        
-        /* Responsividade para Gráfico de Rosca (Melhor no mobile) */
+
         #chart {
-            max-width: 400px; /* Limita o tamanho do gráfico de rosca */
+            max-width: 450px;
             height: auto;
-            margin: 20px auto;
         }
 
         /* RESPONSIVIDADE (MOBILE FIRST) */
         @media (max-width: 768px) {
-            header {
-                flex-direction: column; 
+            .header-container {
+                flex-direction: column;
                 text-align: center;
-                padding: 20px 5%;
-            }
-
-            #perfil-img {
-                margin: 0 auto 10px auto; 
-                width: 70px;
-                height: 70px;
+                gap: 20px;
             }
 
             #header-info {
-                text-align: center; 
+                align-items: center;
+            }
+
+            .study-title {
+                border-left: none;
+                border-bottom: 2px solid var(--tertiary-color);
+                padding-left: 0;
+                padding-bottom: 10px;
+            }
+
+            .contact-info {
+                flex-direction: column;
             }
 
             section {
-                padding: 20px 5%; 
-                margin: 15px 5%;
+                padding: 25px 20px;
+                margin: 15px;
             }
 
-            h1 {
-                font-size: 1.5em;
-            }
-
-            h2 {
-                font-size: 1.2em;
-            }
+            h2 { font-size: 1.3em; }
+            .header-name { font-size: 1.8em; }
         }
     </style>
 </head>
 <body>
+
     <header>
-        <img src="SG_Executivo-removebg-preview.png" alt="Foto de Perfil do Silvanio Gois" id="perfil-img">
-        <div id="header-info">
-            <strong>Silvanio Gois</strong> 
-            <span class="focus-area">Análise Estratégica e Gestão de Pessoas (Foco em ESG/Dados)</span>
-            <br>
-            <a href="mailto:sg@silvaniogois.com.br">sg@silvaniogois.com.br</a> |
-            <a href="https://www.silvaniogois.com.br" target="_blank">www.silvaniogois.com.br</a>
+        <div class="header-container">
+            <img src="SG_Executivo-removebg-preview.PNG" alt="Foto de Perfil de Silvanio Gois" id="perfil-img">
+            <div id="header-info">
+                <div class="header-name">Silvanio Gois</div>
+                <div class="study-title">Mapa de Mobilidade Social: Estratégia e Dados em Capital Humano</div>
+                <div class="contact-info">
+                    <a href="https://wa.me/5513988301094" target="_blank" class="whatsapp-link">
+                        Contato
+                    </a>
+                </div>
+            </div>
         </div>
     </header>
 
-    <h1>Mapa de Mobilidade Social — Brasil</h1>
-    <div class="subtitle-analytica">Uma Análise de Risco e Estratégia de Capital Humano</div>
+    <div class="subtitle-analytica">Uma Análise de Risco e Estratégia Corporativa</div>
     
     <div class="impact">"A mobilidade social não é apenas um indicador; é o pulso da produtividade futura e do risco de retenção do seu Capital Humano."</div>
 
@@ -331,17 +375,13 @@
         
         <div class="estrategia-box">
             <p class="titulo-estrategico">Proposta de Ação Estratégica: 3 Pilares para Mitigação de Risco</p>
-            <p>
-                A gestão moderna exige a tradução de indicadores sociais em <strong>ações corporativas de valor</strong>. Para mim, este relatório direciona a aplicação de recursos de forma credível, focando em:
-            </p>
+            <p>A gestão moderna exige a tradução de indicadores sociais em <strong>ações corporativas de valor</strong>. Para mim, este relatório direciona a aplicação de recursos de forma credível, focando em:</p>
             <ol>
                 <li><strong>Retenção de Talentos & Carreira:</strong> Empresas que atuam como "aceleradores de mobilidade" (oferecendo educação corporativa e trilhas de carreira formais, combatendo a barreira educacional) demonstram um valor superior, atraindo e retendo os melhores profissionais da base. <em>Medimos o impacto no <strong>índice de rotatividade (turnover)</strong> e na redução do <strong>custo de substituição</strong>.</em></li>
                 <li><strong>ESG e Credibilidade (Pilar S):</strong> Ações focadas em <strong>Equidade Social</strong>, como a revisão de remuneração para mitigar a desigualdade, transformam a empresa em um agente de mudança. Meu trabalho é garantir que esses investimentos sejam <strong>mensuráveis</strong>, provando o impacto social e a criação de <strong>valor compartilhado</strong> para investidores e <strong>stakeholders</strong>.</li>
                 <li><strong>Produtividade e Capital Humano:</strong> A mobilidade social está ligada ao aumento do Capital Humano. Ao romper o ciclo de baixa renda e educação, a empresa está, diretamente, elevando a competência, a qualificação e a produtividade de sua força de trabalho.</li>
             </ol>
-            <p>
-                Em suma, minha capacidade reside em transformar dados macroeconômicos em <strong>Plano de Ação de Pessoas mensurável (People Analytics)</strong>, garantindo que o investimento social da empresa gere um <strong>Retorno Compartilhado</strong> credível.
-            </p>
+            <p>Em suma, minha capacidade reside em transformar dados macroeconômicos em <strong>Plano de Ação de Pessoas mensurável (People Analytics)</strong>, garantindo que o investimento social da empresa gere um <strong>Retorno Compartilhado</strong> credível.</p>
         </div>
     </section>
 
@@ -356,19 +396,18 @@
     </section>
 
     <footer>
-        &copy; 2025 Silvanio Gois — Todos os direitos reservados | <a href="https://www.silvaniogois.com.br">Retornar ao site</a>
+        <span class="footer-phrase">Da estratégia à operação, conectando, processos, pessoas e resultados</span>
+        &copy; 2025 Silvanio Gois - Todos os direitos reservados <br>
+        <a href="https://www.silvaniogois.com.br/" target="_blank">ir ao Site</a>
     </footer>
 
     <script>
-        // OBRIGATÓRIO: Registrar o plugin datalabels globalmente
         Chart.register(ChartDataLabels);
 
-        // GRÁFICO ESTÁTICO: AGORA É UM GRÁFICO DE ROSCA (Doughnut) COM PALETA AZUL
         const ctx = document.getElementById('chart').getContext('2d');
         new Chart(ctx, {
             type: 'doughnut',
             data: {
-                // Legendas corrigidas para maior clareza executiva
                 labels: [
                     'Chance de Ascensão (Top Quintil)', 
                     'Permanência na Base (Risco Principal)', 
@@ -377,62 +416,47 @@
                 datasets: [{
                     label: 'Probabilidade (%)',
                     data: [2.5, 46, 51.5], 
-                    // Paleta de azuis, com foco: Ascensão (mais claro), Risco (Primário), Intermediário (neutro)
                     backgroundColor: [
-                        '#4092b3',       /* Azul Claro (Oportunidade/Ascensão) */
-                        '#27628D',       /* Azul Primário (Permanência/Risco) */
-                        '#82A0BC'        /* Azul Suave (Quintis Intermediários) */
+                        '#4092b3', 
+                        '#27628D', 
+                        '#82A0BC'  
                     ],
                     hoverOffset: 4,
-                    // Definindo a cor do texto do datalabel para cada fatia individualmente
                     datalabels: {
                         color: (context) => {
-                            // Garante que o texto fique legível em todas as fatias
-                            if (context.dataIndex === 0) return '#333'; // Preto na fatia clara
-                            return '#fff'; // Branco nas fatias escuras
+                            if (context.dataIndex === 0) return '#333';
+                            return '#fff';
                         }
                     }
                 }]
             },
             options: {
                 responsive: true,
-                plugins: { 
-                    legend: { 
+                plugins: {
+                    legend: {
                         position: 'bottom',
-                        labels: {
-                            font: { size: 10 }
-                        }
+                        labels: { font: { size: 12, family: "'Montserrat', sans-serif" } }
                     },
                     tooltip: {
                         callbacks: {
                             label: function(context) {
                                 let label = context.label || '';
-                                if (label) {
-                                    label += ': ';
-                                }
+                                if (label) label += ': ';
                                 label += context.formattedValue + '%';
                                 return label;
                             }
                         }
                     },
-                    // Configuração do Datalabels
                     datalabels: {
                         formatter: (value) => value.toFixed(1) + '%',
-                        font: { weight: 'bold', size: 14 },
-                        // Remove o background e shadow para um visual mais limpo no Rosca
-                        backgroundColor: null, 
-                        textShadow: {
-                            color: 'rgba(0, 0, 0, 0.4)', 
-                            blur: 4
-                        }
-                        // A cor do texto é definida no dataset para maior precisão
+                        font: { weight: 'bold', size: 14, family: "'Montserrat', sans-serif" },
+                        backgroundColor: null,
+                        textShadow: { color: 'rgba(0, 0, 0, 0.4)', blur: 4 }
                     }
                 }
             }
         });
 
-
-        // Simulador interativo (MANTIDO COMO BARRA PARA CLAREZA NO CÁLCULO)
         let simuladorChart;
         function calcularMobilidade() {
             const renda = parseFloat(document.getElementById('renda').value) || 0;
@@ -441,14 +465,12 @@
             let prob = 0;
             const fatorRenda = renda / 5000;
             
-            if (educacao === 1) prob = fatorRenda * 10; 
-            if (educacao === 2) prob = fatorRenda * 20; 
-            if (educacao === 3) prob = fatorRenda * 35; 
+            if (educacao === 1) prob = fatorRenda * 10;
+            if (educacao === 2) prob = fatorRenda * 20;
+            if (educacao === 3) prob = fatorRenda * 35;
 
             if (prob > 100) prob = 100;
-
             const probFormatada = parseFloat(prob.toFixed(2));
-
 
             const ctxSim = document.getElementById('simuladorChart').getContext('2d');
             if (simuladorChart) simuladorChart.destroy();
@@ -459,24 +481,27 @@
                     datasets: [{
                         label: 'Sua Chance',
                         data: [probFormatada],
-                        backgroundColor: '#27628D'
+                        backgroundColor: 'rgb(39, 98, 141)'
                     }]
                 },
                 options: {
                     responsive: true,
-                    plugins: { 
+                    plugins: {
                         legend: { display: false },
-                        // Configuração do Datalabels para exibir o valor sobre a barra
                         datalabels: {
                             anchor: 'end',
                             align: 'top',
                             formatter: (value) => value.toFixed(2) + '%',
-                            color: '#333', 
-                            font: { weight: 'bold' }
+                            color: '#333',
+                            font: { weight: 'bold', family: "'Montserrat', sans-serif" }
                         }
                     },
                     scales: {
-                        y: { beginAtZero: true, max: 100, title: { display: true, text: 'Porcentagem (%)' } }
+                        y: { 
+                            beginAtZero: true, 
+                            max: 100, 
+                            title: { display: true, text: 'Porcentagem (%)', font: { family: "'Montserrat', sans-serif" } } 
+                        }
                     }
                 }
             });

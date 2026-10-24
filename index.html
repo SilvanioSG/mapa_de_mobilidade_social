@@ -52,7 +52,6 @@
             background-color: var(--background-light);
             margin: 0;
             padding: 0;
-            /* Safe area para iPhones com notch / Dynamic Island */
             padding-left: env(safe-area-inset-left, 0);
             padding-right: env(safe-area-inset-right, 0);
             padding-bottom: env(safe-area-inset-bottom, 0);
@@ -66,7 +65,6 @@
             display: block;
         }
 
-        /* Foco visível para navegação por teclado */
         a:focus-visible,
         button:focus-visible,
         input:focus-visible,
@@ -109,7 +107,6 @@
                         box-shadow 0.45s ease;
         }
 
-        /* Hover apenas em dispositivos com mouse (evita "stuck hover" no toque) */
         @media (hover: hover) and (pointer: fine) {
             #perfil-img:hover {
                 transform: scale(1.05) rotate(-1.5deg);
@@ -179,7 +176,6 @@
             }
         }
 
-        /* Feedback tátil ao tocar (mobile) */
         .whatsapp-link:active {
             transform: scale(0.96);
             transition: transform 0.1s ease;
@@ -440,6 +436,76 @@
         }
 
         /* ============================================================
+           ⬇ BACK TO TOP — botão flutuante discreto
+           ============================================================ */
+        .back-to-top {
+            position: fixed;
+            bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+            right: calc(20px + env(safe-area-inset-right, 0px));
+            width: 44px;
+            height: 44px;
+            min-width: 44px;
+            min-height: 44px;
+            padding: 0;
+            margin: 0;
+            border: none;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(12px);
+            transition:
+                opacity 0.3s ease,
+                visibility 0.3s ease,
+                transform 0.3s ease,
+                background-color 0.25s ease,
+                box-shadow 0.25s ease;
+            z-index: 100;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .back-to-top.is-visible {
+            opacity: 0.88;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .back-to-top svg {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            pointer-events: none;
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+            .back-to-top:hover {
+                opacity: 1;
+                background-color: var(--secondary-color);
+                transform: translateY(-2px);
+                box-shadow: 0 8px 18px rgba(0,0,0,0.28);
+            }
+        }
+
+        .back-to-top:active {
+            transform: scale(0.94);
+            opacity: 1;
+        }
+
+        .back-to-top:focus-visible {
+            opacity: 1;
+        }
+
+        @media print {
+            .back-to-top { display: none !important; }
+        }
+
+        /* ============================================================
            RESPONSIVO — RETRATO (PORTRAIT)
            ============================================================ */
         @media (max-width: 768px) {
@@ -476,7 +542,6 @@
             }
         }
 
-        /* Telas muito estreitas (iPhone SE / Galaxy Fold fechado) */
         @media (max-width: 380px) {
             #perfil-img {
                 width: 84px;
@@ -494,7 +559,6 @@
 
         /* ============================================================
            RESPONSIVO — PAISAGEM (LANDSCAPE)
-           Telas baixas (celular deitado): compacta header e seções
            ============================================================ */
         @media (orientation: landscape) and (max-height: 520px) {
             header {
@@ -544,6 +608,13 @@
             footer {
                 margin-top: 30px;
                 padding: 20px 5%;
+            }
+            /* Back-to-top menor no landscape */
+            .back-to-top {
+                width: 40px;
+                height: 40px;
+                min-width: 40px;
+                min-height: 40px;
             }
         }
 
@@ -702,10 +773,19 @@
     <a href="https://www.silvaniogois.com.br/" target="_blank" rel="noopener noreferrer">Acessar Site</a>
 </footer>
 
+<!-- ⬇ BOTÃO VOLTAR AO TOPO (discreto, aparece após rolar) -->
+<button id="backToTop" class="back-to-top" type="button" aria-label="Voltar ao topo da página" title="Voltar ao topo">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+</button>
+
 <script>
     Chart.register(ChartDataLabels);
 
-    // Gráfico fixo (dados imutáveis)
+    // ============================================================
+    // Gráfico fixo (dados imutáveis) — INALTERADO
+    // ============================================================
     const ctx = document.getElementById('chart').getContext('2d');
     new Chart(ctx, {
         type: 'doughnut',
@@ -731,6 +811,9 @@
         }
     });
 
+    // ============================================================
+    // Simulador — LÓGICA ORIGINAL INALTERADA
+    // ============================================================
     let simuladorChart;
     function calcularMobilidade() {
         const renda = parseFloat(document.getElementById('renda').value) || 0;
@@ -778,6 +861,31 @@
             }
         });
     }
+
+    // ============================================================
+    // ⬇ BACK TO TOP — comportamento
+    // ============================================================
+    (function () {
+        const btn = document.getElementById('backToTop');
+        if (!btn) return;
+
+        const SHOW_AFTER = 400; // px rolados para o botão aparecer
+
+        function updateVisibility() {
+            btn.classList.toggle('is-visible', window.scrollY > SHOW_AFTER);
+        }
+
+        window.addEventListener('scroll', updateVisibility, { passive: true });
+        updateVisibility(); // estado inicial (ex: ao voltar/avançar no navegador)
+
+        btn.addEventListener('click', function () {
+            const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            window.scrollTo({
+                top: 0,
+                behavior: reduced ? 'auto' : 'smooth'
+            });
+        });
+    })();
 </script>
 </body>
 </html>
